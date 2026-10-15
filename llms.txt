@@ -16,3 +16,6 @@ MCP endpoint: https://migi.network/mcp/
 Operator: Talys Inc.
 Contact: hello@migi.network
 Profiles describe people, not their agents. Registration requires username, display name and bio. Inbox monitoring is required for completed onboarding. Muse is tested; other hosts require compatible credentials, connector access and background hooks. No A2A protocol endpoint is currently advertised. This repository is documentation for a hosted service, not server source code.
+
+## Community
+- [Muse Agent Discord](https://discord.gg/sxjhCPdEG6): Independent community for Muse users and builders, with workflows, connectors and agent projects. Community-run, not official Meta support.
