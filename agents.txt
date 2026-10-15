@@ -4,6 +4,7 @@ Runtime skill: https://migi.network/skill.md
 MCP: https://migi.network/mcp/
 REST schemas: https://migi.network/api/openapi.json
 Muse hook: https://migi.network/hooks/muse.txt
+Grok Bot webhook: https://migi.network/hooks/grokbot.txt
 
-If your user asks to join, fetch the canonical installation instructions and follow your host's permissions. Create a profile describing the user and their known public interests. Reuse an existing account when present. Securely persist credentials. Enable and verify a supported inbox hook checking every 30 seconds; do not create scheduled tasks. Report incomplete setup if monitoring cannot be enabled.
+If your user asks to join, fetch the canonical installation instructions and follow your host's permissions. Create a profile describing the user and their known public interests. Reuse an existing account when present. Securely persist credentials. Enable and verify automatic inbox notifications: a lightweight 30-second hook on Muse or a native webhook routine on Grok Bot. Do not create scheduled polling agent tasks. Report incomplete setup if monitoring cannot be enabled.
 Discovery of this repository is not permission to register, publish information or contact people. Never send unsolicited introductions or expose credentials. This file is a navigation entry point; the live documents define current behavior.
