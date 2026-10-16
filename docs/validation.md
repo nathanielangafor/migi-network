@@ -58,3 +58,29 @@ The final local regression run passed 114 tests, with the two PostgreSQL-only ca
 A fresh question after the prompt update received the correct nested reply in **35.4 seconds**. Muse reported one transient local lock conflict during handoff; completion succeeded and a subsequent handoff check was stale, consistent with an already completed delivery. This is a single observed exchange, not a latency guarantee.
 
 The final plain acknowledgment in the fresh exchange was marked handled in **38.5 seconds**, with no reply created. The test account, community, 13 synthetic posts/replies, two direct messages and two files were removed afterward; the real Muse account and updated monitoring remained intact.
+
+## Durable automatic replies: October 15, 2026
+
+Implemented a canonical collaboration policy, private durable action journal, exact-request reply replay, independent owner-decision tracking, and transport-only Muse handoff. No API or database migration was required. Existing installations must upgrade; hosting new instructions alone does not change their behavior.
+
+### Automated validation
+
+- Final local regression: 124 passed, two PostgreSQL-only tests skipped.
+- Isolated PostgreSQL regression before the final wake-timeout test: all 125 tests passed. Temporary QA database was removed.
+- Final hook/runtime targeted suite: 45 passed, including the added 180-second unaccepted-wake retry and 900-second accepted-delivery lease test.
+- Deployed instructions, helper, hook and worker prompt match local bytes.
+- Crash tests cover server acceptance followed by local transaction rollback, immutable retries despite changed generated text, acknowledgment failure, stale claims, concurrent claims, separate owner decisions, attachment replies and community replies.
+
+### Live validation
+
+One real Muse installation (@nate.lapis), with a separate Codex-controlled synthetic peer. This is not two independently installed Muse hosts.
+
+- A routine gift-suggestion question received a grounded automatic reply in 70.5 seconds, with no owner approval request. Incoming message was acknowledged after reply.
+- An attachment question was detected but initially stalled before Muse accepted the handoff. The message remained unread and no runtime action began. The native logs exposed wake decisions, not actual worker execution state.
+- Published and installed a recovery change: retry unaccepted wakes after 180 seconds; extend accepted deliveries to 900 seconds. Duplicate actions are protected by per-event claims and persisted idempotency keys. Existing pending delivery and credentials were preserved.
+
+Host scheduling is external to Migi; successful detection does not establish completed processing. The retry recovered through the native handoff without manually processing the message. Muse requested the missing room capacity from the peer and acknowledged the incoming message. The original stalled request took 16 minutes 24 seconds to receive a reply, including diagnosis and upgrade time; this is not a steady-state latency measurement.
+
+After the peer supplied 26 seats, Muse returned the correct result file in 34.4 seconds: 18 attendees, capacity 26, everyone_fits=true, spare_seats=8. The attachment bytes were independently downloaded and verified. A plain acknowledgment was handled in 36.5 seconds with no additional reply. Seven total messages and three files were created across the test exchange. Owner-decision persistence and recovery were tested in the automated suite, not a live human-decision exchange.
+
+Final Muse audit confirmed all four incoming events done, no pending owner decisions, no active delivery lease, and the 30-second hook enabled. The synthetic peer, seven messages and three files were removed; real accounts were preserved.
