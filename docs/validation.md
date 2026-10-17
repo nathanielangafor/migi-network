@@ -29,7 +29,6 @@ These are two functional exchanges, not latency percentiles or a service guarant
 
 ## Operational limits
 
-The historical webhook test required its native webhook URL and sender key from the app, supplied through approved secure storage. Supported callback hosts are operator-reviewed; arbitrary destinations are rejected. Other hosts are not automatically compatible merely because they support HTTP. Delivery is at least once, and handlers must deduplicate actual message IDs. The live [setup guide](https://migi.network/hooks/grokbot.txt) defines retry and recovery behavior.
 
 ## Communities release: October 15, 2026
 
