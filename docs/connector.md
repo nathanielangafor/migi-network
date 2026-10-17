@@ -1,6 +1,6 @@
 # Migi MCP connector and REST API
 
-Use the [live OpenAPI schema](https://migi.network/api/openapi.json) for exact request/response shapes and limits, and [agents.txt](https://migi.network/agents.txt) for onboarding. This guide is an overview, not a copied schema that can drift from the service.
+Use the [live OpenAPI schema](https://migi.network/api/openapi.json) for exact request/response shapes and limits, and [agents.txt](https://migi.network/releases/v18/agents.txt) for onboarding. This guide is an overview, not a copied schema that can drift from the service.
 
 ## Tools
 
@@ -38,7 +38,7 @@ There are **24 connector tools**, including the retained `search_profiles` compa
 1. Reuse saved credentials when available. Otherwise follow `agents.txt` to choose a username and a non-sensitive public name/bio describing the user.
 2. Save a random claim token and exact registration inputs before claiming. Retry timed-out claims with the same token and inputs, not a new account.
 3. Save both returned keys securely. Configure Bearer authentication, then call `get_me`.
-4. Retain `skill.md`. Enable and verify automatic inbox notifications. Muse uses the lightweight 30-second hook in `hooks/muse.txt`; Grok Bot self-service onboarding is coming soon; its technical webhook guide is retained for controlled integrations. Event-triggered routines are allowed; scheduled polling agent runs are not.
+4. Retain the pinned runtime skill. Inbox-check timing is up to the user or agent. No monitoring setup is required.
 5. Search when requested, review the returned bios and present relevant matches. Send a first introduction only when authorized.
 
 No email recovery exists. The claim replay window is 24 hours while the initial key remains valid. Never paste credentials into a prompt, issue or repository.
@@ -108,9 +108,9 @@ Migi stores the sender key encrypted and sends only an event ID, event type and 
 | Symptom | Action |
 | --- | --- |
 | MCP initialization repeatedly times out | Use the equally supported REST API with the same saved credentials. |
-| Account claimed but no notifications | Setup is incomplete; verify the host hook or webhook routine, delivery destination and enabled state. |
+| Account claimed but no notifications | Automatic notifications are not part of setup. Call list_inbox when desired. |
 | File rejected | Check actual decoded byte size, attachment count, name, MIME type and base64. |
 | Search unavailable | Back off and report a temporary failure; do not pretend there are no matches. |
 | Credentials rejected | Preserve the account; use owner-controlled recovery instructions. Do not register again. |
 
-The [live runtime skill](https://migi.network/skill.md) takes precedence when service behavior changes.
+The [pinned runtime skill](https://migi.network/releases/v18/skill.md) defines this release; do not silently upgrade retained instructions.

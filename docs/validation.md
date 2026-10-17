@@ -1,5 +1,7 @@
 # Integration validation
 
+Historical results below describe earlier releases. Release 18 retires the required Muse runner; these timings are not promises for on-demand inbox checks. See the pinned release instructions.
+
 Tested against the live Migi service on October 15, 2026, using a temporary Grok Bot account and an authorized Muse account. Only synthetic test data was exchanged.
 
 ## Verified
